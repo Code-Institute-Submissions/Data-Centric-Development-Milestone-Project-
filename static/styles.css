@@ -1,0 +1,208 @@
+/* NAV Bar Customisation - icon, color, brand */
+.navbar-custom {
+	background-color: #e5e5e5;
+}
+/* Modify brand and text color */
+.navbar-custom .navbar-brand, .navbar-custom .navbar-text {
+	color: #141484;
+}
+/* Set the border color to the desired color */
+.custom-toggler.navbar-toggler {
+	border-color: #141484;
+}
+/*Load burger icon for nav toggler*/
+.custom-toggler .navbar-toggler-icon {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(20, 20, 132, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+body {
+	margin: 0;
+	text-align: center;
+	font-family: 'Tajawal', sans-serif;
+	font-size: 1.2rem;
+}
+/* Styling for Headings */
+h1 {
+	color: #141484;
+	font-size: 5.625rem;
+	line-height:2;
+	margin-top: 3.125rem;
+	margin: 0 auto 0 auto;
+	font-family: 'Dancing Script', cursive;
+}
+h2 {
+	color: #141484;
+	font-family: 'Montserrat', sans-serif;
+	margin-top: 1.25rem;
+	font-size: 3rem;
+	line-height: 1;
+	font-weight: bold;
+	padding-bottom: 0.625rem;
+}
+
+h3 {
+	color: #141484;
+	font-family: 'Montserrat', sans-serif;
+	margin-top: 1.25rem;
+	font-size: 1.7rem;
+	line-height: 4;
+	font-weight: bold;
+	padding-bottom: 0.625rem;
+}
+
+
+/* Icon Styling */
+a {
+	color: #141484;
+	font-family: 'Montserrat', sans-serif;
+	margin: 0.625rem 1.25rem;
+	text-decoration: none;
+}
+/* Button hover styling */
+a:hover {
+	color: #E600E6;
+}
+/* Container, Image and Text Styling */
+.top-container {
+	background-color: #e8e8eb;
+	padding-top: 4.0625rem;
+
+}
+
+.middle-container {
+	margin: 6.25rem;
+
+}
+
+
+.middle2-container {
+	background-color: white;
+
+}
+
+.bottom-container {
+	background-color: #e5e5e5;
+	padding: 3.125rem 0 1.25rem;
+}
+.container {
+	max-width: 1000px;
+	background: #d6e9ef;
+	margin: 20px auto;
+	box-shadow: 0 0 20px rgba(72, 98, 85, 0.6);
+	box-sizing: border-box;
+	padding: 20px;
+}
+
+
+.contact-us {
+	width: 40%;
+	margin: 2.5rem auto 3.75rem;
+}
+.copyright {
+	font-size: 0.75rem;
+	font-family: 'Montserrat', sans-serif;
+	color: #141484;
+	padding: 1.25rem 0rem;
+}
+/* Contact Form */
+.container .p {
+	text-align: center;
+	letter-spacing: 1px;
+	font-size: 45px;
+	margin-bottom: 20px;
+	color: #486255;
+}
+.login .input {
+	width: 48%;
+	float: left;
+	margin-right: 4%;
+}
+.login .input:last-child {
+	margin-right: 0;
+}
+.msg .area {
+	height: 500px;
+}
+.input:focus, .msg .area:focus {
+	border: 2px solid #ced4da;
+}
+::-webkit-input-placeholder {
+	font-family: 'roboto';
+}
+/* Button Styling */
+.btn {
+	-webkit-box-shadow: 0px 1px 3px #666666;
+	-moz-box-shadow: 0px 1px 3px #666666;
+	box-shadow: 0px 1px 3px #666666;
+	font-family: Tajawal;
+	color: #1f628d;
+	font-size: 16px;
+	padding: 6px;
+	background: #e6e9eb;
+	text-decoration: none;
+	text-transform: capitalize;
+}
+.btn:hover {
+	color: #E600E6;
+}
+/* Responsive for lrg/tbs/mobile */
+@media only screen and (max-width:500px) {
+	body {
+		position: relative;
+		width: 100%;
+   }
+
+
+	.profile {
+		width: 100%;
+   }
+	h1 {
+		font-size: 4.25rem;
+   }
+	h2 {
+		font-size: 1.5rem;
+   }
+
+
+	a {
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+   }
+}
+/* Responsive for 5k+*/
+@media (min-width:5000px) {
+	body {
+		position: relative;
+		width: 100%;
+		font-size: 4.25rem;
+   }
+	.h-img {
+		max-width: 100%;
+		float: left;
+		margin: 0;
+   }
+	h1 {
+		font-size: 15.625rem;
+   }
+	h2, h3 {
+		font-size: 6rem;
+   }
+
+
+
+	.container {
+		max-width: 1300px;
+		height: 1300px;
+		background: #fff;
+		margin: 150px auto;
+		box-shadow: 0 0 20px rgba(72, 98, 85, 0.6);
+		box-sizing: border-box;
+		padding: 40px;
+   }
+	.form-control{
+		font-size: 4rem;
+   }
+	textarea.form-control {
+		height: 550px;
+   }
+}
