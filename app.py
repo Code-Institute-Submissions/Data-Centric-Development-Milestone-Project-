@@ -55,6 +55,41 @@ def results():
         search_text = request.form['search']
         return render_template("results.html", book_results=search_result(search_text))
 
+# Display singular book information as selected by User from Results page
+# Uses
+@app.route("/book/<isbn>")
+def book(isbn):
+    url = "https://openlibrary.org/api/books?bibkeys=ISBN:{}".format(isbn) + "&format=json&jscmd=data"
+    resp = requests.get(url=url)
+    info = resp.json()
+    info = info['ISBN:{}'.format(isbn)]
+    authors = []
+    publishers = []
+    subjects = []
+    if info.get('authors'):
+        for item in info.get('authors'):
+            authors.append(item.get('name'))
+    if info.get('publishers'):
+        for item in info.get('publishers'):
+            publishers.append(item.get('name'))
+    if info.get('subjects'):
+        for item in info.get('subjects'):
+            publishers.append(item.get('name'))
+    review_list = []
+
+# Find any existing reviews in MongoDB
+    get_reviews = Reviews.find({'ISBN': isbn})
+    for review in get_reviews:
+        review_list.append(review)
+
+# Get image for selected book
+    image = info.get('cover')
+    if image:
+        image = image.get('medium')
+    return render_template("book.html", book=info, reviews=review_list, isbn=isbn, image=image, authors=authors,
+                           publishers=publishers, subjects=subjects)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
