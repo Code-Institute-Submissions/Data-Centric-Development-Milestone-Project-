@@ -18,3 +18,17 @@ def search_result(search_text):
     resp = requests.get(
         url='http://openlibrary.org/search.json?q=' + search_text)
     result = resp.json()
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/results", methods=["POST"])
+def results():
+    if request.method == "POST":
+        search_text = request.form['search']
+        return render_template("results.html", book_results=search_result(search_text))
+
+if __name__ == "__main__":
+    app.run(debug=True)
