@@ -19,6 +19,31 @@ def search_result(search_text):
         url='http://openlibrary.org/search.json?q=' + search_text)
     result = resp.json()
 
+#Get results from API in JSON format
+    search = result['docs']
+    result_list = []
+#Sort results in loop to collect 10 items and store them in an object
+    i = 0
+    for item in search:
+        if (i == 10):
+            break
+        i += 1
+        isbn = item.get('isbn')
+        if isbn is not None:
+            isbn = isbn[0]
+        authors = item.get('author_name')
+        authors = authors[:4]
+        obj = {
+            "title": item.get('title'),
+            "author": authors,
+            'isbn': isbn,
+            'image': 'http://covers.openlibrary.org/b/isbn/{}-M.jpg'.format(isbn),
+            #Use ISBN of selected books and pass them as arguements to COVERS API to get an image (if it exists)
+        }
+        result_list.append(obj)
+
+    return result_list
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -29,6 +54,7 @@ def results():
     if request.method == "POST":
         search_text = request.form['search']
         return render_template("results.html", book_results=search_result(search_text))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
