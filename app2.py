@@ -33,3 +33,12 @@ def update_review():
     Reviews.find_one_and_update(
         old_review, new_review)
     return redirect(url_for('book', isbn=isbn))
+
+# Function to Delete Review
+@app.route("/delete_review", methods=["POST"])
+def delete_review():
+    review_id = request.form.get('id')
+    isbn = request.form.get('isbn')
+    Reviews.delete_one({'_id': ObjectId(review_id)})
+
+    return redirect(url_for('book', isbn=isbn))
