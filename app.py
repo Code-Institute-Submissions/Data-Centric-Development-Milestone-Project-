@@ -1,17 +1,21 @@
+import os
+import requests
+
 # Flask imports
 from flask import Flask, render_template, request, url_for, redirect
 from flask_pymongo import PyMongo
 
-# Create Flask instance
+from bson.objectid import ObjectId
+
+if os.path.exists('secrets.py'):
+    import secrets
+
 app = Flask(__name__)
 
-#Define MONGO URI with Credentials/DB
-app.config['MONGO_URI'] = 'mongodb+srv://root:70AoSLdgfRWWrOE6@myfirstcluster.w2rzj.mongodb.net/reviewdb?retryWrites=true&w=majority'
-mongo = PyMongo(app)
-Reviews = mongo.db.reviews
+app.config['MONGODB_NAME'] = os.environ.get('MONGODB_NAME')
+app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 
-import requests
-from bson.objectid import ObjectId
+mongo = PyMongo(app)
 
 #Define Search function to GET information from OpenLibrary API
 def search_result(search_text):
