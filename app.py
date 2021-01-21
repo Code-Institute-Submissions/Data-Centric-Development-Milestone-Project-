@@ -60,7 +60,7 @@ def results():
         return render_template("results.html", book_results=search_result(search_text))
 
 # Display singular book information as selected by User from Results page
-# Uses
+
 @app.route("/book/<isbn>")
 def book(isbn):
     url = "https://openlibrary.org/api/books?bibkeys=ISBN:{}".format(isbn) + "&format=json&jscmd=data"
