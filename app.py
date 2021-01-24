@@ -20,7 +20,7 @@ mongo = PyMongo(app)
 #Define method to check if a path exists - used for error handling
 def exists(path):
     r = requests.head(path)
-    return r.status_code == requests.codes.ok  # pylint: disable=no-member
+    return r.status_code == 200  # pylint: disable=no-member
 #False positive with pylint (known issue)
 
 #Define Search function to GET information from OpenLibrary API
@@ -34,6 +34,7 @@ def search_result(search_text):
     result_list = []
 #Sort results in loop to collect 16 items and store them in an object
 #Added static image to handle any book without covers
+    i=0
     alt_image = "/static/na.png"
     for item in search:
         if (i == 16):
@@ -47,7 +48,8 @@ def search_result(search_text):
         if len(authors) > 3:
             authors = authors[:4]
         image = 'http://covers.openlibrary.org/b/isbn/{}-M.jpg'.format(isbn)
-#Use ISBN of selected books and pass them as arguements to COVERS API to get an image (if it exists)
+#Use ISBN of selected books and pass them as arguements to COVERS API to get an
+#image (if it exists)
         if exists(image):
             image = alt_image
         obj = {
@@ -69,15 +71,23 @@ def index():
 def results():
     if request.method == "POST":
         search_text = request.form['search']
-        return render_template("results.html", book_results=search_result(search_text))
+        book_results = search_result(search_text)
+        flag = 0
+        if(len(book_results) > 0):
+            flag = 1
+        return render_template("results.html", book_results=book_results,
+                               flag=flag)))
 
 # Display singular book information as selected by User from Results page
 
 @app.route("/book/<isbn>")
 def book(isbn):
-    url = "https://openlibrary.org/api/books?bibkeys=ISBN:{}".format(isbn) + "&format=json&jscmd=data"
+    Reviews = mongo.db.reviews
+    url = "https://openlibrary.org/api/books?bibkeys=ISBN:{}".format(
+        isbn) + "&format=json&jscmd=data"
     resp = requests.get(url=url)
     info = resp.json()
+    # commm
     info = info['ISBN:{}'.format(isbn)]
     authors = []
     publishers = []
@@ -90,8 +100,12 @@ def book(isbn):
             publishers.append(item.get('name'))
     if info.get('subjects'):
         for item in info.get('subjects'):
-            publishers.append(item.get('name'))
+            subjects.append(item.get('name'))
     review_list = []
+
+    get_reviews = Reviews.find({'ISBN': isbn})
+    for review in get_reviews:
+        review_list.append(review)
 
 # Find any existing reviews in MongoDB
 #    get_reviews = Reviews.find({'ISBN': isbn})
@@ -103,18 +117,21 @@ def book(isbn):
     if image:
         image = image.get('medium')
     else:
-        image = '/static/na.png'
-    return render_template("book.html", book=info, reviews=review_list, isbn=isbn, image=image, authors="".join(authors),
-                           publishers=publishers, subjects=subjects)
+        image = "/static/images/na.png"
+    return render_template("book.html", book=info, reviews=review_list,
+                           isbn=isbn, image=image, authors="".join(authors),
+                           publishers=",".join(publishers), subjects=","
+                           .join(subjects))
 
 #Review Functions to create, retrieve, update and delete records in MongoDB
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
+    Reviews = mongo.db.reviews
     isbn = request.form.get('isbn')
     review = {'username': request.form.get('username'),
               'comments': request.form.get('review'),
               'ISBN': isbn,
-              'rating': int(request.form.get('rating'))}
+              'rating': request.form.get('rating')}
     Reviews.insert_one(review)
     return redirect(url_for('book', isbn=isbn))
 
