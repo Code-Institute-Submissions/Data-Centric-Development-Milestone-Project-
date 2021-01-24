@@ -17,6 +17,12 @@ app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 
 mongo = PyMongo(app)
 
+#Define method to check if a path exists - used for error handling
+def exists(path):
+    r = requests.head(path)
+    return r.status_code == requests.codes.ok  # pylint: disable=no-member
+#False positive with pylint (known issue)
+
 #Define Search function to GET information from OpenLibrary API
 def search_result(search_text):
     resp = requests.get(
@@ -26,26 +32,32 @@ def search_result(search_text):
 #Get results from API in JSON format
     search = result['docs']
     result_list = []
-#Sort results in loop to collect 10 items and store them in an object
-    i = 0
+#Sort results in loop to collect 16 items and store them in an object
+#Added static image to handle any book without covers
+    alt_image = "/static/na.png"
     for item in search:
-        if (i == 10):
+        if (i == 16):
             break
-        i += 1
         isbn = item.get('isbn')
-        if isbn is not None:
-            isbn = isbn[0]
+        if isbn is None:
+            continue
+        isbn = isbn[0]
+        i += 1
         authors = item.get('author_name')
-        authors = authors[:4]
+        if len(authors) > 3:
+            authors = authors[:4]
+        image = 'http://covers.openlibrary.org/b/isbn/{}-M.jpg'.format(isbn)
+#Use ISBN of selected books and pass them as arguements to COVERS API to get an image (if it exists)
+        if exists(image):
+            image = alt_image
         obj = {
             "title": item.get('title'),
-            "author": authors,
+            "author": "".join(authors),
             'isbn': isbn,
-            'image': 'http://covers.openlibrary.org/b/isbn/{}-M.jpg'.format(isbn),
-            #Use ISBN of selected books and pass them as arguements to COVERS API to get an image (if it exists)
+            'image': image,
+
         }
         result_list.append(obj)
-
     return result_list
 
 @app.route("/")
@@ -90,7 +102,9 @@ def book(isbn):
     image = info.get('cover')
     if image:
         image = image.get('medium')
-    return render_template("book.html", book=info, reviews=review_list, isbn=isbn, image=image, authors=authors,
+    else:
+        image = '/static/na.png'
+    return render_template("book.html", book=info, reviews=review_list, isbn=isbn, image=image, authors="".join(authors),
                            publishers=publishers, subjects=subjects)
 
 #Review Functions to create, retrieve, update and delete records in MongoDB
