@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<<<<<<< Updated upstream
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home </title>
@@ -122,3 +123,118 @@
 </body>
 
 </html>
+=======
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Book Info</title>
+   <!-- Google Fonts -->
+   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat&family=Tajawal&display=swap"
+      rel="stylesheet">
+   <!-- CSS Stylesheets -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/static/css/styles.css">
+   <link rel="stylesheet" href="/static/css/custom.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- FontAwesome Icon -->
+   <script src="https://kit.fontawesome.com/bc07c8115c.js" crossorigin="anonymous"></script>
+   <!-- Bootstrap Scripts -->
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+</head>
+
+<body id="home">
+   <nav class="navbar navbar-custom navbar-expand-lg">
+      <a class="navbar-brand" href=""></a>
+      <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse"
+         data-target="#navbarSupportedContent">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+               <a class="nav-link" href="/">Home</a>
+            </li>
+         </ul>
+      </div>
+   </nav>
+   <section>
+      <div class="top-container">
+         <h1>Book Info</h1>
+      </div>
+      <h2><strong>Reviews</strong></h2>
+   </section>
+   <section>
+      <div class="container">
+         <div class="row row-centered">
+            <div class="col-sm-12">
+               <img class="card-img-top" style="width:250px;height:300px" src="{{ image }}" alt="Image Not Available">
+               <div class="card-body">
+                  <h4 class="card-title">{{ book.title }}</h4>
+                  <p class="text-center">Author: {{ authors }}</p>
+                  <p class="text-center">ISBN: {{ isbn }}</p>
+               </div>
+            </div>
+         </div>
+         <hr>
+         <h3>Read this Book? Leave a review!</h3>
+         <div class="review">
+            <p>Name:</p>
+            <form action="/submit_review" method="POST">
+               <input type="hidden" name="isbn" id="movieID" value="{{ isbn }}">
+               <input type="text" style="width:225px;height:30px;" name="username" placeholder="Name">
+               <p></p>
+               <p>Review:</p>
+               <textarea rows="5" cols="70" name="review" placeholder="Write Review"></textarea>
+               <p></p>
+               <p>Rating:<input type="number" max="5" min="0" style="width:40px;height:30px;" name="rating"> of 5<i
+                     class="fa fa-star checked"></i>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">Add Review</button>
+            </form>
+         </div>
+         {% for review in reviews %}
+         <div class="row row-centered">
+            <div class="col-sm-1"></div>
+            <p class="text-center">{{ review.rating }}<span class="fa fa-star checked"></span> &nbsp;&nbsp;Rating by
+               {{review.username}}&nbsp;&nbsp;
+               <hr>
+               <hr>
+               {{ review.comments}} &nbsp;&nbsp;
+            <form action="/edit_review" method="POST">
+               <input type="hidden" name="isbn" value="{{ isbn }}">
+               <input type="hidden" name="id" value="{{ review._id }}">
+               <button type="submit" class="btn btn-success">Edit Review <i class="fa fa-edit"></i></button>
+            </form>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <form action="/delete_review" method="POST">
+               <input type="hidden" name="isbn" value="{{ isbn }}">
+               <input type="hidden" name="id" value="{{ review._id }}">
+               <button type="submit" class="btn btn-danger">Delete Review <i class="fa fa-trash"></i></button>
+            </form>
+         </div>
+         {% endfor %}
+      </div>
+   </section>
+   <hr>
+   <footer>
+      <div class="bottom-container">
+         <a class="footer-link" href="https://www.linkedin.com/" target="_blank"><i
+               class="fab fa-linkedin fa-2x"></i></a>
+         <a class="footer-link" href="https://twitter.com/" target="_blank"><i
+               class="fab fa-twitter-square fa-2x"></i></a>
+         <a class="footer-link" href="https://facebook.com/" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
+         <a class="footer-link" href="https://instagram.com/" target="_blank"><i
+               class="fab fa-instagram-square fa-2x"></i> </a>
+         <p class="copyright">Attiya Riaz © 2020</p>
+      </div>
+   </footer>
+</body>
+
+</html>
+>>>>>>> Stashed changes

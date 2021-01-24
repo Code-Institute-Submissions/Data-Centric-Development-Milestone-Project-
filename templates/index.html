@@ -1,108 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Home </title>
-      <!-- Google Fonts -->
-      <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat&family=Tajawal&display=swap" rel="stylesheet">
-      <!-- CSS Stylesheets -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- FontAwesome Icon -->
-      <script src="https://kit.fontawesome.com/bc07c8115c.js" crossorigin="anonymous"></script>
-      <!-- Bootstrap Scripts -->
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-   </head>
-   <body id="home">
-      <nav class="navbar navbar-custom navbar-expand-lg">
-         <a class="navbar-brand" href=""></a>
-         <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Home </title>
+   <!-- Google Fonts -->
+   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat&family=Tajawal&display=swap"
+      rel="stylesheet">
+   <!-- CSS Stylesheets -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/static/css/styles.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- FontAwesome Icon -->
+   <script src="https://kit.fontawesome.com/bc07c8115c.js" crossorigin="anonymous"></script>
+   <!-- Bootstrap Scripts -->
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+</head>
+
+<body id="home">
+   <nav class="navbar navbar-custom navbar-expand-lg">
+      <a class="navbar-brand" href=""></a>
+      <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse"
+         data-target="#navbarSupportedContent">
          <span class="navbar-toggler-icon"></span>
-         </button>
-         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-               <li class="nav-item">
-                  <a class="nav-link" href="/">About</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="contactme.html">Contact Me</a>
-               </li>
-            </ul>
-         </div>
-      </nav>
-      <section>
-      </ul>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+               <a class="nav-link" href="/">Home</a>
+            </li>
+         </ul>
       </div>
-      </nav>
-      <main>
-         <section>
-            <div class="top-container">
-               <h1>Cookies Book Club</h1>
-               <p></p>
-               <p>Welcome to Cookies Book Club! An online pathway to almost any book you can imagine!</p>
-               <p>Please type in the name of the author, or title, and sit back and let us do our thing...</p>
-                <br>
-               <img src="/static/images/cookie_tea.png" alt = "cookie-tea" type="image">
-                <form method="POST" action="/results">
-                 <input type="text" style="width:600px;" placeholder="Search for Books using Title or Author..." name="search">
-             </form>
-                <br>
+   </nav>
+   <main>
+      <section>
+         <div class="top-container">
+            <h1>Cookies Book Club</h1>
+            <p></p>
+            <p>Welcome to Cookies Book Club! An online pathway to almost any book you can imagine!</p>
+            <p>Please type in the name of the author, or title, and sit back and let us do our thing...</p>
+            <br>
+            <div class="image">
+               <img class="cookie" src="/static/images/cookie_tea.png" alt="cookie-tea">
             </div>
-
-         </section>
-          <div class="middle-container">
-               <h2>Featured Books</h2>
-          </div>
-         <div class="container">
-
+            <form method="POST" action="/results">
+               <div class="placeholder">
+                  <input type="text" style="width:53%;" placeholder="Search for Books..." name="search">
+               </div>
+            </form>
+            <br>
+         </div>
+      </section>
+      <div class="middle-container">
+         <h2>Featured Books</h2>
+      </div>
+      <div class="container">
          <hr class="my-4">
-
          <!--Carousel Wrapper W3 Schools-->
          <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
-
             <!--Controls-->
             <div class="controls-top">
-               <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-               <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+               <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i
+                     class="fa fa-chevron-left"></i></a>
+               <a class="btn-floating" href="#multi-item-example" data-slide="next"><i
+                     class="fa fa-chevron-right"></i></a>
             </div>
             <!--/.Controls-->
-
             <!--Slides-->
             <div class="carousel-inner" role="listbox">
-
                <!--First slide-->
                <div class="carousel-item active">
-
                   <div class="row">
                      <div class="col-md-4">
                         <div class="card mb-2">
                            <img class="card-img-top"
-                              src="https://images-na.ssl-images-amazon.com/images/I/51ewo7gTYhL._SX419_BO1,204,203,200_.jpg" width="200px;" height="450px" alt="Card image cap">
+                              src="https://images-na.ssl-images-amazon.com/images/I/51ewo7gTYhL._SX419_BO1,204,203,200_.jpg"
+                              width="200" height="400" alt="Card image cap">
                            <div class="card-body">
                               <h4 class="card-title">British Designers At Home</h4>
                               <p class="card-text">By Jenny Rose-Innes</p>
                               <p>ISBN:1784883468</p>
-                              <a href="https://www.amazon.co.uk/British-Designers-Home-Jenny-Rose-Innes/dp/1784883468" a class="btn btn-primary">Buy Now!</a>
+                              <a class="btn btn-primary"
+                                 href="https://www.amazon.co.uk/British-Designers-Home-Jenny-Rose-Innes/dp/1784883468">Buy
+                                 Now!</a>
                            </div>
                         </div>
                      </div>
-
                      <div class="col-md-4 clearfix d-none d-md-block">
                         <div class="card mb-2">
                            <img class="card-img-top"
-                              src="https://images-na.ssl-images-amazon.com/images/I/51ifu1aebKL._SX332_BO1,204,203,200_.jpg" width="200px;" height="450px" alt="Card image cap">
+                              src="https://images-na.ssl-images-amazon.com/images/I/51ifu1aebKL._SX332_BO1,204,203,200_.jpg"
+                              width="200" height="400" alt="Card image cap">
                            <div class="card-body">
                               <h4 class="card-title">Harry Potter and the Philosopher's Stone</h4>
                               <p class="card-text">By J.K. Rowling</p>
                               <p>ISBN:9781408855652</p>
-                              <a href="https://www.amazon.co.uk/Harry-Potter-Philosophers-Stone/dp/1408855658" a class="btn btn-primary">Buy Now!</a>
+                              <a class="btn btn-primary"
+                                 href="https://www.amazon.co.uk/Harry-Potter-Philosophers-Stone/dp/1408855658">Buy
+                                 Now!</a>
                            </div>
                         </div>
                      </div>
+<<<<<<< Updated upstream
 
                         <div class="col-md-4 clearfix d-none d-md-block">
                            <div class="card mb-2">
@@ -116,99 +125,105 @@
      &nbsp;
                                  <a href="https://www.amazon.co.uk/Lord-Rings-J-R-Tolkien/dp/0261103253" a class="btn btn-primary">Buy Now!</a>
                               </div>
+=======
+                     <div class="col-md-4 clearfix d-none d-md-block">
+                        <div class="card mb-2">
+                           <img class="card-img-top"
+                              src="https://images-na.ssl-images-amazon.com/images/I/41i2Sdwf7mL._SX325_BO1,204,203,200_.jpg"
+                              width="200" height="400" alt="Card image cap">
+                           <div class="card-body">
+                              <h4 class="card-title">Lord of the Rings</h4>
+                              &nbsp;
+                              <p class="card-text">By J. R. R. Tolkien</p>
+                              <p>ISBN:0261103253</p>
+                              &nbsp;
+                              <a class="btn btn-primary"
+                                 href="https://www.amazon.co.uk/Lord-Rings-J-R-Tolkien/dp/0261103253">Buy Now!</a>
+>>>>>>> Stashed changes
                            </div>
                         </div>
                      </div>
+                  </div>
                </div>
                <!--/.First slide-->
-
                <!--Second slide-->
                <div class="carousel-item">
-
                   <div class="row">
                      <div class="col-md-4">
                         <div class="card mb-2">
                            <img class="card-img-top"
-                              src="https://images-na.ssl-images-amazon.com/images/I/41wCxyS7lWL._SX387_BO1,204,203,200_.jpg" width="200px;" height="450px" alt="Card image cap">
+                              src="https://images-na.ssl-images-amazon.com/images/I/41wCxyS7lWL._SX387_BO1,204,203,200_.jpg"
+                              width="200" height="400" alt="Card image cap">
                            <div class="card-body">
                               <h4 class="card-title">7 Ways</h4>
                               <p class="card-text">By Jamie Oliver</p>
                               <p>ISBN:0241431158</p>
-                              <a href="https://www.amazon.co.uk/Ways-Easy-Ideas-Every-Week/dp/0241431158" a class="btn btn-primary">Buy Now!</a>
+                              <a class="btn btn-primary"
+                                 href="https://www.amazon.co.uk/Ways-Easy-Ideas-Every-Week/dp/0241431158">Buy Now!</a>
                            </div>
                         </div>
                      </div>
-
                      <div class="col-md-4 clearfix d-none d-md-block">
                         <div class="card mb-2">
-                           <img class="card-img-top"
-                              src="https://covers.openlibrary.org/b/id/8840676-L.jpg" width="200px;" height="450px" alt="Card image cap">
+                           <img class="card-img-top" src="https://covers.openlibrary.org/b/id/8840676-L.jpg" width="200"
+                              height="400" alt="Card image cap">
                            <div class="card-body">
                               <h4 class="card-title">GBBO: Get Baking</h4>
                               <p class="card-text">By Paul Hollywood/Prue Leith</p>
                               <p></p>
-                                 <p>ISBN:0751574643</p>
-                              <a href="https://www.amazon.co.uk/Great-British-Bake-Off-Friends/dp/0751574643" a class="btn btn-primary">Buy Now!</a>
+                              <p>ISBN:0751574643</p>
+                              <a class="btn btn-primary"
+                                 href="https://www.amazon.co.uk/Great-British-Bake-Off-Friends/dp/0751574643">Buy
+                                 Now!</a>
                            </div>
                         </div>
                      </div>
-
                      <div class="col-md-4 clearfix d-none d-md-block">
                         <div class="card mb-2">
-                           <img class="card-img-top"
-                              src="https://covers.openlibrary.org/b/id/8739161-L.jpg" width="200px;" height="450px" alt="Card image cap">
+                           <img class="card-img-top" src="https://covers.openlibrary.org/b/id/8739161-L.jpg" width="200"
+                              height="400" alt="Card image cap">
                            <div class="card-body">
                               <h4 class="card-title">Fantastic Mr. Fox</h4>
                               <p class="card-text">By Roald Dahl </p>
                               <p></p>
                               <p></p>
                               <p>ISBN: 0141365447</p>
-                              <a href="https://www.amazon.co.uk/Fantastic-Mr-Fox-Dahl-Fiction/dp/0141365447" a class="btn btn-primary">Buy Now!</a>
+                              <a class="btn btn-primary"
+                                 href="https://www.amazon.co.uk/Fantastic-Mr-Fox-Dahl-Fiction/dp/0141365447">Buy
+                                 Now!</a>
                            </div>
                         </div>
                      </div>
                   </div>
-
                </div>
-
-
-
-
-
-         </div>
-
-
-
+            </div>
          </div>
          <hr>
          <section>
-         <div class="middle2-container">
-         <h3>Find the book you were looking for?</h3>
-         <p>You love to read and we love to read!</p>
-         <p> Help others enjoy reading by leaving a review of the book at Cookies Book Club </p>
-         <div class="contact-us">
-         <a class="btn" href="contactus.html"><i class="far fa-envelope"></i> Contact Us</a>
-             </div>
-         </div>
-         </section>
-
-         </div>
-         </div>
-         <footer>
-            <div class="bottom-container">
-               <a class="footer-link" href="https://www.linkedin.com/"target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
-               <a class="footer-link" href="https://twitter.com/"target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
-               <a class="footer-link" href="https://facebook.com/"target="_blank"><i class="fab fa-facebook fa-2x" ></i></a>
-               <a class="footer-link" href="https://instagram.com/"target="_blank"><i class="fab fa-instagram-square fa-2x"></i> </a>
-               <p class="copyright">© 2020</p>
+            <div class="middle2-container">
+               <h3>Find the book you were looking for?</h3>
+               <p>You love to read and we love to read!</p>
+               <p> Help others enjoy reading by leaving a review of the book at Cookies Book Club </p>
+               <div class="contact-us">
+                  <a class="btn" href="/templates/contactme.html"><i class="far fa-envelope"></i> Contact Us</a>
+               </div>
             </div>
-         </footer>
+         </section>
+      </div>
+      <footer>
+         <div class="bottom-container">
+            <a class="footer-link" href="https://www.linkedin.com/" target="_blank"><i
+                  class="fab fa-linkedin fa-2x"></i></a>
+            <a class="footer-link" href="https://twitter.com/" target="_blank"><i
+                  class="fab fa-twitter-square fa-2x"></i></a>
+            <a class="footer-link" href="https://facebook.com/" target="_blank"><i
+                  class="fab fa-facebook fa-2x"></i></a>
+            <a class="footer-link" href="https://instagram.com/" target="_blank"><i
+                  class="fab fa-instagram-square fa-2x"></i> </a>
+            <p class="copyright">Attiya Riaz © 2020</p>
+         </div>
+      </footer>
+   </main>
+</body>
 
-      </main>
-<script>
-function selectChange(val) {
-    $('#myForm').submit();
-}
-</script>
-   </body>
 </html>
