@@ -6,7 +6,7 @@ def submit_review():
     review = {'username': request.form.get('username'),
               'comments': request.form.get('review'),
               'ISBN': isbn,
-              'rating': int(request.form.get('rating'))}
+              'rating': request.form.get('rating')}
     Reviews.insert_one(review)
     return redirect(url_for('book', isbn=isbn))
 
@@ -16,7 +16,7 @@ def edit_review():
     Reviews = mongo.db.reviews
     isbn = request.form.get('isbn')
     review_id = request.form.get('id')
-    review = Reviews.find_one({'_id': ObjectId(review_id)})
+    review = Reviews.find_one_or_404({'_id': ObjectId(review_id)})
 
     return render_template("edit.html", review=review, isbn=isbn)
 
@@ -25,7 +25,7 @@ def edit_review():
 def update_review():
     Reviews = mongo.db.reviews
     review_id = request.form.get('id')
-    old_review = Reviews.find_one({'_id': ObjectId(review_id)})
+    old_review = Reviews.find_one_or_404({'_id': ObjectId(review_id)})
 
     isbn = request.form.get('isbn')
     print(request.form)
