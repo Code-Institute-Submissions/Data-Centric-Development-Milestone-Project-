@@ -17,19 +17,23 @@ app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 
 mongo = PyMongo(app)
 
-
+#Define method to check if a path exists - used for error handling
 def exists(path):
     r = requests.head(path)
     return r.status_code == 200  # pylint: disable=no-member
+#False positive with pylint (known issue)
 
-
+#Define Search function to GET information from OpenLibrary API
 def search_result(search_text):
     resp = requests.get(
         url='http://openlibrary.org/search.json?q=' + search_text)
     result = resp.json()
 
+#Get results from API in JSON format
     search = result['docs']
     result_list = []
+#Sort results in loop to collect 16 items and store them in an object
+#Added static image to handle any book without covers
     i = 0
     alt_image = "/static/images/na.png"
     for item in search:
@@ -72,6 +76,7 @@ def results():
         return render_template("results.html", book_results=book_results,
                                flag=flag)
 
+# Display singular book information as selected by User from Results page
 
 @app.route("/book/<isbn>")
 def book(isbn):
@@ -80,7 +85,7 @@ def book(isbn):
         isbn) + "&format=json&jscmd=data"
     resp = requests.get(url=url)
     info = resp.json()
-    # commm
+# commm
     info = info['ISBN:{}'.format(isbn)]
     authors = []
     publishers = []
@@ -100,6 +105,13 @@ def book(isbn):
     for review in get_reviews:
         review_list.append(review)
 
+# Find any existing reviews in MongoDB
+#    get_reviews = Reviews.find({'ISBN': isbn})
+#    for review in get_reviews:
+#        review_list.append(review)
+
+# Get image for selected book
+
     image = info.get('cover')
     if image:
         image = image.get('medium')
@@ -110,7 +122,7 @@ def book(isbn):
                            publishers=",".join(publishers), subjects=","
                            .join(subjects))
 
-
+#Review Functions to create, retrieve, update and delete records in MongoDB
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
     Reviews = mongo.db.reviews
@@ -122,7 +134,7 @@ def submit_review():
     Reviews.insert_one(review)
     return redirect(url_for('book', isbn=isbn))
 
-
+# Function to Edit Review
 @app.route("/edit_review", methods=["POST"])
 def edit_review():
     Reviews = mongo.db.reviews
@@ -132,7 +144,7 @@ def edit_review():
 
     return render_template("edit.html", review=review, isbn=isbn)
 
-
+# Function to Update Review
 @app.route("/update_review", methods=["POST"])
 def update_review():
     Reviews = mongo.db.reviews
@@ -149,7 +161,7 @@ def update_review():
         old_review, new_review)
     return redirect(url_for('book', isbn=isbn))
 
-
+# Function to Delete Review
 @app.route("/delete_review", methods=["POST"])
 def delete_review():
     Reviews = mongo.db.reviews
