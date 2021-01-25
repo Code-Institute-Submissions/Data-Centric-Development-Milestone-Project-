@@ -6,17 +6,13 @@ from flask import send_from_directory
 # Flask imports
 from flask import Flask, render_template, request, url_for, redirect
 from flask_pymongo import PyMongo
-
 from bson.objectid import ObjectId
-
 if os.path.exists('secrets.py'):
     import secrets
 
 app = Flask(__name__)
-
 app.config['MONGODB_NAME'] = os.environ.get('MONGODB_NAME')
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-
 mongo = PyMongo(app)
 
 #Define method to check if a path exists - used for error handling
@@ -39,14 +35,14 @@ def search_result(search_text):
     i = 0
     alt_image = "/static/images/na.png"
     for item in search:
-        if (i == 16):
+        if (i == 16 or i == len(search)):
             break
         isbn = item.get('isbn')
         if isbn is None:
             continue
         isbn = isbn[0]
         i += 1
-        authors = item.get('author_name')
+        authors = item.get('author_name', [])
         if len(authors) > 3:
             authors = authors[:4]
         image = 'http://covers.openlibrary.org/b/isbn/{}-M.jpg'.format(isbn)
@@ -79,7 +75,6 @@ def results():
                                flag=flag)
 
 # Display singular book information as selected by User from Results page
-
 @app.route("/book/<isbn>")
 def book(isbn):
     Reviews = mongo.db.reviews
@@ -87,7 +82,6 @@ def book(isbn):
         isbn) + "&format=json&jscmd=data"
     resp = requests.get(url=url)
     info = resp.json()
-# commm
     info = info['ISBN:{}'.format(isbn)]
     authors = []
     publishers = []
@@ -102,18 +96,12 @@ def book(isbn):
         for item in info.get('subjects'):
             subjects.append(item.get('name'))
     review_list = []
-
+    # Find any existing reviews in MongoDB
     get_reviews = Reviews.find({'ISBN': isbn})
     for review in get_reviews:
         review_list.append(review)
 
-# Find any existing reviews in MongoDB
-#    get_reviews = Reviews.find({'ISBN': isbn})
-#    for review in get_reviews:
-#        review_list.append(review)
-
 # Get image for selected book
-
     image = info.get('cover')
     if image:
         image = image.get('medium')
@@ -143,7 +131,6 @@ def edit_review():
     isbn = request.form.get('isbn')
     review_id = request.form.get('id')
     review = Reviews.find_one_or_404({'_id': ObjectId(review_id)})
-
     return render_template("edit.html", review=review, isbn=isbn)
 
 # Function to Update Review
@@ -152,7 +139,6 @@ def update_review():
     Reviews = mongo.db.reviews
     review_id = request.form.get('id')
     old_review = Reviews.find_one_or_404({'_id': ObjectId(review_id)})
-
     isbn = request.form.get('isbn')
     print(request.form)
     new_review = {'$set': {'username': request.form.get('username'),
@@ -170,7 +156,6 @@ def delete_review():
     review_id = request.form.get('id')
     isbn = request.form.get('isbn')
     Reviews.delete_one({'_id': ObjectId(review_id)})
-
     return redirect(url_for('book', isbn=isbn))
 
 # to remove known issue with favicon
