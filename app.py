@@ -1,5 +1,7 @@
 import os
 import requests
+from flask import send_from_directory
+# imported function to remove known issue with favicon
 
 # Flask imports
 from flask import Flask, render_template, request, url_for, redirect
@@ -171,6 +173,10 @@ def delete_review():
 
     return redirect(url_for('book', isbn=isbn))
 
+# to remove known issue with favicon
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == "__main__":
     app.run(debug=True)
